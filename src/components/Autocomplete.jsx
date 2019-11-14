@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import Button from './Button';
 import { getCharactersService } from '../services/getCharactersService';
 import styles from '../sass/Autocomplete.module.sass';
+import ErrorMessage from './ErrorMessage';
 
 class Autocomplete extends Component {
     state = {
         items: [],
         suggestions: [],
-        value: ''
+        value: '',
+        error: false
     };
 
-    handleChange = e => {
+    changeInputValue = e => {
         const {
             target: { value }
         } = e;
@@ -23,30 +25,37 @@ class Autocomplete extends Component {
     };
 
     searchSuggestions = async () => {
+        // hide error message
+        this.setState({ error: false });
         const { value } = this.state;
         let suggestions = [];
 
         if (value.length > 1) {
-            const { data } = await getCharactersService(value);
-            const items = [...data.data.results];
-            console.log(data);
-            this.setState({ items });
-
-            let regex;
             try {
-                regex = new RegExp(`^${value}`, 'i');
+                const { data } = await getCharactersService(value);
+                const items = [...data.data.results];
+                console.log(data);
+                this.setState({ items });
+                let regex;
+                try {
+                    regex = new RegExp(`^${value}`, 'i');
+                } catch (error) {
+                    console.log('there is an error with the expression');
+                    if (error) return;
+                }
+                suggestions = items.filter(item => regex.test(item.name));
             } catch (error) {
-                console.log('there is an error with the expression');
-                if (error) return;
+                console.log(error);
+                if (error.status !== 200) {
+                    this.setState({ error: true });
+                }
             }
-
-            suggestions = items.filter(item => regex.test(item.name));
         }
         this.setState({ suggestions });
     };
 
     render() {
-        const { suggestions, value } = this.state;
+        const { suggestions, value, error } = this.state;
         return (
             <>
                 <label className={styles.label}>Search</label>
@@ -56,7 +65,7 @@ class Autocomplete extends Component {
                         placeholder='Search terms'
                         className={styles.input}
                         value={value}
-                        onChange={this.handleChange}
+                        onChange={this.changeInputValue}
                     />
                     <ul>
                         {suggestions.length > 0 &&
@@ -72,6 +81,7 @@ class Autocomplete extends Component {
                 <div className={styles.button}>
                     <Button onClick={this.searchSuggestions} />
                 </div>
+                <ErrorMessage hasError={error} />
             </>
         );
     }
