@@ -30,6 +30,7 @@ class Autocomplete extends Component {
         const { suggestions, value } = this.state;
         return (
             <div className={styles.container}>
+                <label className={styles.label}>Search</label>
                 <div className={styles.autocomleteContainer}>
                     <input
                         type='text'
