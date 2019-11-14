@@ -1,16 +1,6 @@
-.container
-    display: flex
-    align-tems: center
-    justify-content: center
-    flex-direction: column
-    height: 20vh
-    text-align: center
-
 .label
-    margin-bottom: 10px
-    left: -125px
-    position: relative
     font-weight: bold
+    display: block
 
 =sharedStyle()
     font-family: Aria, Helvetica, sans-serif
@@ -19,11 +9,14 @@
     border-radius: 5px
 
 .autocomleteContainer
+    margin-top: 10px
     width: 300px
     border: 2px solid #e1e9ec
-    margin: 0 auto
-    display: block
+    // margin: 0 auto
+    // display: block
     +sharedStyle()
+    display: inline-block
+    margin-right: 10px
 
 .autocomleteContainer input
     width: 100%
@@ -52,3 +45,8 @@
 
 .autocomleteContainer li:hover
     background-color: #e1e9ec
+
+.button
+    display: inline-block
+    position: absolute
+    top: 32px

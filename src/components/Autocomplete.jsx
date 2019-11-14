@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import Button from './Button';
+import { getCharactersService } from '../services/getCharactersService';
 import styles from '../sass/Autocomplete.module.sass';
 
 class Autocomplete extends Component {
     state = {
-        items: ['John', 'Jordy', 'Sara', 'Kostas'],
+        items: [],
         suggestions: [],
         value: ''
     };
@@ -12,24 +14,41 @@ class Autocomplete extends Component {
         const {
             target: { value }
         } = e;
-        const { items } = this.state;
-
-        let suggestions = [];
-        if (value.length > 1) {
-            const regex = new RegExp(`^${value}`, 'i');
-            suggestions = items.sort().filter(item => regex.test(item));
-        }
-        this.setState({ suggestions, value });
+        // empty the array while typing
+        this.setState({ suggestions: [], value });
     };
 
-    handleClick = suggestion => {
+    selectSuggestion = suggestion => {
         this.setState({ value: suggestion });
+    };
+
+    searchSuggestions = async () => {
+        const { value } = this.state;
+        let suggestions = [];
+
+        if (value.length > 1) {
+            const { data } = await getCharactersService(value);
+            const items = [...data.data.results];
+            console.log(data);
+            this.setState({ items });
+
+            let regex;
+            try {
+                regex = new RegExp(`^${value}`, 'i');
+            } catch (error) {
+                console.log('there is an error with the expression');
+                if (error) return;
+            }
+
+            suggestions = items.filter(item => regex.test(item.name));
+        }
+        this.setState({ suggestions });
     };
 
     render() {
         const { suggestions, value } = this.state;
         return (
-            <div className={styles.container}>
+            <>
                 <label className={styles.label}>Search</label>
                 <div className={styles.autocomleteContainer}>
                     <input
@@ -41,18 +60,19 @@ class Autocomplete extends Component {
                     />
                     <ul>
                         {suggestions.length > 0 &&
-                            suggestions.map(suggestion => (
+                            suggestions.map(({ name, id }) => (
                                 <li
-                                    key={suggestion}
-                                    onClick={() =>
-                                        this.handleClick(suggestion)
-                                    }>
-                                    {suggestion}
+                                    key={id}
+                                    onClick={() => this.selectSuggestion(name)}>
+                                    {name}
                                 </li>
                             ))}
                     </ul>
                 </div>
-            </div>
+                <div className={styles.button}>
+                    <Button onClick={this.searchSuggestions} />
+                </div>
+            </>
         );
     }
 }
