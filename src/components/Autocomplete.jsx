@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Button from './Button';
+import Alert from './Alert';
 import { getCharactersService } from '../services/getCharactersService';
 import styles from '../sass/Autocomplete.module.sass';
-import ErrorMessage from './ErrorMessage';
 
 class Autocomplete extends Component {
     state = {
@@ -81,7 +81,7 @@ class Autocomplete extends Component {
                 <div className={styles.button}>
                     <Button onClick={this.searchSuggestions} />
                 </div>
-                <ErrorMessage hasError={error} />
+                <Alert hasError={error} />
             </>
         );
     }

@@ -10,5 +10,5 @@ const apiKey = process.env.REACT_APP_API_KEY;
 
 export const getCharactersService = value =>
     httpService.get(
-        `${apiEndpoint}?ts=1&namStartsWith=${value}&apikey=${apiKey}`
+        `${apiEndpoint}?ts=1&nameStartsWith=${value}&apikey=${apiKey}`
     );
