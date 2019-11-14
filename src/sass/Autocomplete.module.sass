@@ -12,26 +12,26 @@
     position: relative
     font-weight: bold
 
-.autocomleteContainer
-    width: 300px
-    border: 2px solid #e1e9ec
-    margin: 0 auto
-    display: block
+=sharedStyle()
     font-family: Aria, Helvetica, sans-serif
     font-size: 14px
     color: rgba(0, 0, 0, 0.73)
     border-radius: 5px
 
+.autocomleteContainer
+    width: 300px
+    border: 2px solid #e1e9ec
+    margin: 0 auto
+    display: block
+    +sharedStyle()
+
 .autocomleteContainer input
     width: 100%
     border: none
-    font-family: Aria, Helvetica, sans-serif
-    font-size: 14px
-    color: rgba(0, 0, 0, 0.73)
     padding: 8px
     box-sizing: border-box
     outline: none
-    border-radius: 5px
+    +sharedStyle()
 
 .autocomleteContainer ul 
     list-style-type: none
