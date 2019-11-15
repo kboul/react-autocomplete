@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Button from './Button';
 import Alert from './Alert';
+import Input from './Input';
+import Suggestions from './Suggestions';
 import { getCharactersService } from '../services/getCharactersService';
 import styles from '../sass/Autocomplete.module.sass';
 
@@ -16,7 +18,7 @@ class Autocomplete extends Component {
         const {
             target: { value }
         } = e;
-        // empty the array while typing
+        // empty the suggestions array while typing
         this.setState({ suggestions: [], value });
     };
 
@@ -60,23 +62,14 @@ class Autocomplete extends Component {
             <>
                 <label className={styles.label}>Search</label>
                 <div className={styles.autocomleteContainer}>
-                    <input
-                        type='text'
-                        placeholder='Search terms'
-                        className={styles.input}
+                    <Input
                         value={value}
-                        onChange={this.changeInputValue}
+                        changeInputValue={this.changeInputValue}
                     />
-                    <ul>
-                        {suggestions.length > 0 &&
-                            suggestions.map(({ name, id }) => (
-                                <li
-                                    key={id}
-                                    onClick={() => this.selectSuggestion(name)}>
-                                    {name}
-                                </li>
-                            ))}
-                    </ul>
+                    <Suggestions
+                        suggestions={suggestions}
+                        selectSuggestion={this.selectSuggestion}
+                    />
                 </div>
                 <div className={styles.button}>
                     <Button onClick={this.searchSuggestions} />
