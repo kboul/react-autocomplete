@@ -4,11 +4,16 @@ import styles from '../sass/Suggestions.module.sass';
 
 const Suggestions = ({ suggestions, selectSuggestion }) => {
     return (
-        <div className={styles.suggestionsContainer}>
+        <div
+            data-test='component-suggestions'
+            className={styles.suggestionsContainer}>
             <ul>
                 {suggestions.length > 0 &&
                     suggestions.map(({ name, id }) => (
-                        <li key={id} onClick={() => selectSuggestion(name)}>
+                        <li
+                            data-test='suggestion-list'
+                            key={id}
+                            onClick={() => selectSuggestion(name)}>
                             {name}
                         </li>
                     ))}
