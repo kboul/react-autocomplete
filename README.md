@@ -1,13 +1,33 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React autocomplete
 
-## Available Scripts
+A react app to retrieve marvel characters via autosuggestion while typing to an input.
 
-In the project directory, you can run:
+## Run the project
 
-### `npm start`
+clone the project
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+select master branch
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Navigate to the root folder:
+
+```
+npm install
+```
+
+```
+npm start
+```
+
+browser listens to [http://localhost:3000](http://localhost:3000) as default port
+
+## Unit Tests
+
+```
+npm test
+```
+
+Get the project's test coverage
+
+```
+npm run test:coverage
+```
