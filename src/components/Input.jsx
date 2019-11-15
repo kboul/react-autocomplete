@@ -6,6 +6,7 @@ const Input = ({ value, changeInputValue }) => {
     return (
         <input
             type='text'
+            data-test='component-input'
             placeholder='Search terms'
             className={styles.input}
             value={value}

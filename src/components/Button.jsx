@@ -6,6 +6,7 @@ const Button = ({ onClick }) => {
     return (
         <input
             type='button'
+            data-test='component-button'
             className={styles.button}
             value='SEARCH'
             onClick={onClick}
