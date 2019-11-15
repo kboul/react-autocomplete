@@ -1,11 +1,21 @@
-.error
+=commonStyle()
     margin-top: 20px
-    color: #721c24
-    background-color: #f8d7da
-    border-color: #f5c6cb
     position: relative
     padding: .75rem 1.25rem
     margin-bottom: 1rem
     border: 1px solid transparent
     border-radius: .25rem
-    width: 33%
+    width: 350px
+    
+.danger
+    margin-top: 20px
+    color: #721c24
+    background-color: #f8d7da
+    border-color: #f5c6cb
+    +commonStyle()
+
+.warning
+    color: #856404
+    background-color: #fff3cd
+    border-color: #ffeeba
+    +commonStyle()

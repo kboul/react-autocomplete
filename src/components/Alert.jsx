@@ -2,20 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '../sass/Alert.module.sass';
 
-const Alert = ({ hasError }) => {
-    return hasError ? (
-        <div data-test='component-alert' className={styles.error}>
-            <span data-test='alert-message'>
-                There was a problem while fetching the characters.
-            </span>
+const Alert = ({ type }) => {
+    const alertStyle =
+        type === 'noSuggestions' ? styles.warning : styles.danger;
+
+    const alertMessage =
+        type === 'noSuggestions'
+            ? 'No suggestions were found.'
+            : 'There was a problem while fetching the characters.';
+
+    return (
+        <div data-test='component-alert' className={alertStyle}>
+            <span data-test='alert-message'>{alertMessage}</span>
         </div>
-    ) : (
-        <div data-test='component-alert' />
     );
 };
 
 Alert.propTypes = {
-    hasError: PropTypes.bool.isRequired
+    type: PropTypes.string.isRequired
 };
 
 export default Alert;

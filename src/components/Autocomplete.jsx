@@ -11,7 +11,8 @@ class Autocomplete extends Component {
         items: [],
         suggestions: [],
         value: '',
-        error: false
+        error: false,
+        noSuggestions: false
     };
 
     changeInputValue = e => {
@@ -37,7 +38,10 @@ class Autocomplete extends Component {
                 const { data } = await getCharactersService(value);
                 const items = [...data.data.results];
                 console.log(data);
-                this.setState({ items });
+                this.setState({
+                    items,
+                    noSuggestions: items.length === 0 ? true : false
+                });
                 let regex;
                 try {
                     regex = new RegExp(`^${value}`, 'i');
@@ -57,9 +61,9 @@ class Autocomplete extends Component {
     };
 
     render() {
-        const { suggestions, value, error } = this.state;
+        const { suggestions, value, error, noSuggestions } = this.state;
         return (
-            <>
+            <div data-test='component-autocomplete'>
                 <label className={styles.label}>Search</label>
                 <div className={styles.autocomleteContainer}>
                     <Input
@@ -74,8 +78,9 @@ class Autocomplete extends Component {
                 <div className={styles.button}>
                     <Button onClick={this.searchSuggestions} />
                 </div>
-                <Alert hasError={error} />
-            </>
+                {error && <Alert />}
+                {noSuggestions && <Alert type='noSuggestions' />}
+            </div>
         );
     }
 }
