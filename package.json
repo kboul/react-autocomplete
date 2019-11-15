@@ -22,7 +22,8 @@
             "src/**/*.{js,jsx}",
             "!src/index.jsx",
             "!src/serviceWorker.js",
-            "!src/tests/**"
+            "!src/tests/**",
+            "!src/services/httpService.js"
         ]
     },
     "eslintConfig": {
@@ -52,6 +53,7 @@
         "eslint-plugin-prettier": "^3.1.1",
         "eslint-plugin-react": "^7.16.0",
         "eslint-plugin-react-hooks": "^1.7.0",
+        "moxios": "^0.4.0",
         "prettier": "^1.19.1"
     }
 }
