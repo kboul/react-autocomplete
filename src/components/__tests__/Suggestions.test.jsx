@@ -56,7 +56,6 @@ describe('if there are suggestions', () => {
             wrapper,
             'component-suggestions'
         );
-        console.log(wrapper.debug());
         expect(componentSuggestions.text()).not.toHaveLength(0);
     });
 
