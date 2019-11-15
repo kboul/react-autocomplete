@@ -5,7 +5,9 @@ import styles from '../sass/Alert.module.sass';
 const Alert = ({ hasError }) => {
     return hasError ? (
         <div data-test='component-alert' className={styles.error}>
-            There was a problem while fetching the characters.
+            <span data-test='alert-message'>
+                There was a problem while fetching the characters.
+            </span>
         </div>
     ) : (
         <div data-test='component-alert' />
