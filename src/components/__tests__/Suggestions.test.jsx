@@ -64,7 +64,7 @@ describe('if there are suggestions', () => {
         expect(suggestionList).toHaveLength(suggestions.length);
     });
 
-    test('renders the correct number of list items', () => {
+    test('selectSuggestion is called when clicking on a suggestion', () => {
         const suggestionList = findByTestAttr(wrapper, 'suggestion-list');
         suggestionList.at(0).simulate('click');
         expect(mockSelectSuggestion).toHaveBeenCalled();

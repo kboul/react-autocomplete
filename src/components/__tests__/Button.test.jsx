@@ -20,6 +20,13 @@ test('renders without error', () => {
     expect(componentButton).toHaveLength(1);
 });
 
+test('onClick is called on onClick event', () => {
+    const wrapper = setup();
+    const suggestionList = findByTestAttr(wrapper, 'component-button');
+    suggestionList.simulate('click');
+    expect(mockOnClick).toHaveBeenCalled();
+});
+
 test('does not throw warning with expected props', () => {
-    checkProps(Button, { onClick: mockOnClick });
+    checkProps(Button, defaultProps);
 });
