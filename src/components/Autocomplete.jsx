@@ -49,7 +49,7 @@ class Autocomplete extends Component {
         return (
             <div data-test='component-autocomplete'>
                 <label className={styles.label}>Search</label>
-                <div className={styles.autocomleteContainer}>
+                <div className={styles.autocompleteContainer}>
                     <Input
                         value={value}
                         changeInputValue={e => this.changeInputValue(e)}

@@ -23,7 +23,7 @@ describe('Input', () => {
     const wrapper = setup();
     const componentInput = wrapper.find('Input');
 
-    test('prop selectSuggestion is a function', () => {
+    test('prop changeInputValue is a function', () => {
         expect(componentInput.prop('changeInputValue')).toBeInstanceOf(
             Function
         );
