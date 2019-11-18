@@ -10,15 +10,26 @@ const defaultProps = {
     changeInputValue: mockChangeInputValue
 };
 
-const setup = (props = {}) => {
-    const setupProps = { ...defaultProps, ...props };
-    return shallow(<Input {...setupProps} />);
+const setup = () => {
+    return shallow(<Input {...defaultProps} />);
 };
 
-test('renders without error', () => {
-    const wrapper = setup();
-    const componentInput = findByTestAttr(wrapper, 'component-input');
-    expect(componentInput).toHaveLength(1);
+describe('Input', () => {
+    let wrapper;
+    let componentInput;
+    beforeEach(() => {
+        wrapper = setup();
+        componentInput = findByTestAttr(wrapper, 'component-input');
+    });
+
+    test('renders without error', () => {
+        expect(componentInput).toHaveLength(1);
+    });
+
+    test('onChange is called upon onChange event', () => {
+        componentInput.simulate('change');
+        expect(mockChangeInputValue).toHaveBeenCalled();
+    });
 });
 
 test('does not throw warning with expected props', () => {

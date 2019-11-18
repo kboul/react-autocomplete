@@ -16,21 +16,18 @@ const setup = (props = {}) => {
 };
 
 describe('if there are no suggestions', () => {
-    const wrapper = setup();
+    let wrapper;
+    let componentSuggestions;
+    beforeEach(() => {
+        wrapper = setup();
+        componentSuggestions = findByTestAttr(wrapper, 'component-suggestions');
+    });
 
     test('renders without error', () => {
-        const componentSuggestions = findByTestAttr(
-            wrapper,
-            'component-suggestions'
-        );
         expect(componentSuggestions).toHaveLength(1);
     });
 
     test('does not render suggestion markup', () => {
-        const componentSuggestions = findByTestAttr(
-            wrapper,
-            'component-suggestions'
-        );
         expect(componentSuggestions.text()).toHaveLength(0);
     });
 });
@@ -41,7 +38,11 @@ describe('if there are suggestions', () => {
         { id: 1009281, name: 'Doctor Doom' },
         { id: 1011103, name: 'Doctor Doom (Ultimate)' }
     ];
-    const wrapper = setup({ suggestions });
+
+    let wrapper;
+    beforeEach(() => {
+        wrapper = setup({ suggestions });
+    });
 
     test('renders without error', () => {
         const componentSuggestions = findByTestAttr(

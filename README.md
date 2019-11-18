@@ -1,6 +1,6 @@
 # React autocomplete
 
-A react app to retrieve marvel characters via autosuggestion while typing to an input.
+A react app to retrieve marvel characters via a custom built autosuggestion UI component while typing to an input.
 
 ## Run the project
 
