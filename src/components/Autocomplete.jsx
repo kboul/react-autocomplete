@@ -8,56 +8,40 @@ import styles from '../sass/Autocomplete.module.sass';
 
 class Autocomplete extends Component {
     state = {
-        items: [],
         suggestions: [],
         value: '',
         error: false,
         noSuggestions: false
     };
 
-    changeInputValue = e => {
-        const {
-            target: { value }
-        } = e;
+    changeInputValue = ({ target: { value } }) => {
         // empty the suggestions array while typing
         this.setState({ suggestions: [], value });
     };
 
-    selectSuggestion = suggestion => {
-        this.setState({ value: suggestion });
+    selectSuggestion = value => {
+        this.setState({ value });
     };
 
     searchSuggestions = async () => {
         // hide error message
         this.setState({ error: false });
-        const { value } = this.state;
-        let suggestions = [];
 
+        const { value } = this.state;
         if (value.length > 1) {
             try {
                 const { data } = await getCharactersService(value);
-                const items = [...data.data.results];
-                console.log(data);
+                const suggestions = [...data.data.results];
                 this.setState({
-                    items,
-                    noSuggestions: items.length === 0 ? true : false
+                    suggestions,
+                    noSuggestions: suggestions.length === 0 ? true : false
                 });
-                let regex;
-                try {
-                    regex = new RegExp(`^${value}`, 'i');
-                } catch (error) {
-                    console.log('there is an error with the expression');
-                    if (error) return;
-                }
-                suggestions = items.filter(item => regex.test(item.name));
             } catch (error) {
-                console.log(error);
                 if (error.status !== 200) {
                     this.setState({ error: true });
                 }
             }
         }
-        this.setState({ suggestions });
     };
 
     render() {
@@ -68,7 +52,7 @@ class Autocomplete extends Component {
                 <div className={styles.autocomleteContainer}>
                     <Input
                         value={value}
-                        changeInputValue={this.changeInputValue}
+                        changeInputValue={e => this.changeInputValue(e)}
                     />
                     <Suggestions
                         suggestions={suggestions}
@@ -78,8 +62,10 @@ class Autocomplete extends Component {
                 <div className={styles.button}>
                     <Button onClick={this.searchSuggestions} />
                 </div>
-                {error && <Alert />}
-                {noSuggestions && <Alert type='noSuggestions' />}
+                <div data-test='component-alert'>
+                    {error && <Alert type='' />}
+                    {noSuggestions && <Alert type='noSuggestions' />}
+                </div>
             </div>
         );
     }

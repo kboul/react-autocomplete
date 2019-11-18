@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Suggestions from '../Suggestions';
 import { findByTestAttr, checkProps } from '../../tests/testUtils';
+import { suggestions } from '../../tests/suggestions';
 
 const mockSelectSuggestion = jest.fn();
 
@@ -33,12 +34,6 @@ describe('if there are no suggestions', () => {
 });
 
 describe('if there are suggestions', () => {
-    const suggestions = [
-        { id: 1009275, name: 'Doc Samson' },
-        { id: 1009281, name: 'Doctor Doom' },
-        { id: 1011103, name: 'Doctor Doom (Ultimate)' }
-    ];
-
     let wrapper;
     beforeEach(() => {
         wrapper = setup({ suggestions });
