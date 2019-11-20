@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Button from './Button';
+import debounce from 'lodash.debounce';
 import Alert from './Alert';
 import Input from './Input';
 import Suggestions from './Suggestions';
@@ -14,16 +14,7 @@ class Autocomplete extends Component {
         noSuggestions: false
     };
 
-    changeInputValue = ({ target: { value } }) => {
-        // empty the suggestions array while typing
-        this.setState({ suggestions: [], value });
-    };
-
-    selectSuggestion = value => {
-        this.setState({ value });
-    };
-
-    searchSuggestions = async () => {
+    searchSuggestions = debounce(async () => {
         // hide error message
         this.setState({ error: false });
 
@@ -42,29 +33,38 @@ class Autocomplete extends Component {
                 }
             }
         }
+    }, 1000);
+
+    changeInputValue = ({ target: { value } }) => {
+        // empty the suggestions array while typing
+        this.setState({ suggestions: [], value });
+    };
+
+    selectSuggestion = value => {
+        this.setState({ value });
     };
 
     render() {
         const { suggestions, value, error, noSuggestions } = this.state;
         return (
-            <div data-test='component-autocomplete'>
+            <div data-test="component-autocomplete">
                 <label className={styles.label}>Search</label>
                 <div className={styles.autocompleteContainer}>
                     <Input
                         value={value}
-                        changeInputValue={e => this.changeInputValue(e)}
+                        onChange={e => {
+                            this.changeInputValue(e);
+                            this.searchSuggestions();
+                        }}
                     />
                     <Suggestions
                         suggestions={suggestions}
                         selectSuggestion={this.selectSuggestion}
                     />
                 </div>
-                <div className={styles.button}>
-                    <Button onClick={this.searchSuggestions} />
-                </div>
-                <div data-test='component-alert'>
-                    {error && <Alert type='' />}
-                    {noSuggestions && <Alert type='noSuggestions' />}
+                <div data-test="component-alert">
+                    {error && <Alert type="" />}
+                    {noSuggestions && <Alert type="noSuggestions" />}
                 </div>
             </div>
         );

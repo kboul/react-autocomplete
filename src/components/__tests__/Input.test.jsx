@@ -3,11 +3,11 @@ import { shallow } from 'enzyme';
 import Input from '../Input';
 import { findByTestAttr, checkProps } from '../../tests/testUtils';
 
-const mockChangeInputValue = jest.fn();
+const mockOnChange = jest.fn();
 
 const defaultProps = {
     value: '',
-    changeInputValue: mockChangeInputValue
+    onChange: mockOnChange
 };
 
 const setup = () => {
@@ -28,7 +28,7 @@ describe('Input', () => {
 
     test('onChange is called upon onChange event', () => {
         componentInput.simulate('change');
-        expect(mockChangeInputValue).toHaveBeenCalled();
+        expect(mockOnChange).toHaveBeenCalled();
     });
 });
 

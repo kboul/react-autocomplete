@@ -2,22 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '../sass/Input.module.sass';
 
-const Input = ({ value, changeInputValue }) => {
+const Input = ({ value, onChange }) => {
     return (
         <input
-            type='text'
-            data-test='component-input'
-            placeholder='Search terms'
+            type="text"
+            data-test="component-input"
+            placeholder="Search terms"
             className={styles.input}
             value={value}
-            onChange={changeInputValue}
+            onChange={onChange}
         />
     );
 };
 
 Input.propTypes = {
     value: PropTypes.string.isRequired,
-    changeInputValue: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired
 };
 
 export default Input;

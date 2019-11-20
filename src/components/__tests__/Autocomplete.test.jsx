@@ -24,17 +24,60 @@ describe('Input', () => {
     const componentInput = wrapper.find('Input');
 
     test('prop changeInputValue is a function', () => {
-        expect(componentInput.prop('changeInputValue')).toBeInstanceOf(
-            Function
-        );
+        expect(componentInput.prop('onChange')).toBeInstanceOf(Function);
     });
 
     test('changeInputValue logic runs as expected', () => {
         const mockChangeInputValue = jest.fn();
         wrapper.instance().changeInputValue = mockChangeInputValue;
         componentInput.simulate('change', { target: { value: 'doc' } });
-        componentInput.props().changeInputValue('doc');
+        componentInput.props().onChange('doc');
         expect(mockChangeInputValue).toHaveBeenCalledWith('doc');
+    });
+
+    test('searchSuggestions logic runs as expected', () => {
+        const mockSearchSuggestions = jest.fn();
+        wrapper.instance().searchSuggestions = mockSearchSuggestions;
+        wrapper.instance().searchSuggestions();
+        componentInput.simulate('change', { target: { value: 'doc' } });
+        componentInput.props().onChange('doc');
+        expect(mockSearchSuggestions).toHaveBeenCalled();
+    });
+
+    describe('moxios tests', () => {
+        beforeEach(() => {
+            wrapper.setState({ noSuggestions: false });
+            wrapper.update();
+            moxios.install();
+        });
+
+        afterEach(() => {
+            moxios.uninstall();
+        });
+
+        test('calls getCharactersService callback on axios response', async () => {
+            moxios.wait(() => {
+                const request = moxios.requests.mostRecent();
+                request.respondWith({
+                    status: 200,
+                    response: suggestions
+                });
+            });
+
+            componentInput.simulate('change', { target: { value: 'doc' } });
+            try {
+                const { data } = await getCharactersService('doc');
+                expect(data).toEqual(suggestions);
+                wrapper.setState({ suggestions, noSuggestions: true });
+                wrapper.update();
+                expect(wrapper.state().suggestions).toEqual(suggestions);
+                expect(wrapper.state().noSuggestions).toBeTruthy();
+            } catch (error) {
+                wrapper.setState({ error: true });
+                wrapper.update();
+                expect(wrapper.state().error).toBeTruthy();
+            }
+        });
     });
 });
 
@@ -62,54 +105,54 @@ describe('Suggestions', () => {
     });
 });
 
-describe('Button', () => {
-    const wrapper = setup();
-    const componentButton = wrapper.find('Button');
+// describe('Button', () => {
+//     const wrapper = setup();
+//     const componentButton = wrapper.find('Button');
 
-    test('searchSuggestions logic runs as expected', () => {
-        const mockSearchSuggestions = jest.fn();
-        wrapper.instance().searchSuggestions = mockSearchSuggestions;
-        wrapper.instance().searchSuggestions();
-        componentButton.props().onClick('sa');
-        expect(mockSearchSuggestions).toHaveBeenCalled();
-    });
+//     test('searchSuggestions logic runs as expected', () => {
+//         const mockSearchSuggestions = jest.fn();
+//         wrapper.instance().searchSuggestions = mockSearchSuggestions;
+//         wrapper.instance().searchSuggestions();
+//         componentButton.props().onClick('sa');
+//         expect(mockSearchSuggestions).toHaveBeenCalled();
+//     });
 
-    describe('moxios tests', () => {
-        beforeEach(() => {
-            wrapper.setState({ noSuggestions: false });
-            wrapper.update();
-            moxios.install();
-        });
+//     describe('moxios tests', () => {
+//         beforeEach(() => {
+//             wrapper.setState({ noSuggestions: false });
+//             wrapper.update();
+//             moxios.install();
+//         });
 
-        afterEach(() => {
-            moxios.uninstall();
-        });
+//         afterEach(() => {
+//             moxios.uninstall();
+//         });
 
-        test('calls getCharactersService callback on axios response', async () => {
-            moxios.wait(() => {
-                const request = moxios.requests.mostRecent();
-                request.respondWith({
-                    status: 200,
-                    response: suggestions
-                });
-            });
+//         test('calls getCharactersService callback on axios response', async () => {
+//             moxios.wait(() => {
+//                 const request = moxios.requests.mostRecent();
+//                 request.respondWith({
+//                     status: 200,
+//                     response: suggestions
+//                 });
+//             });
 
-            componentButton.simulate('click');
-            try {
-                const { data } = await getCharactersService('doc');
-                expect(data).toEqual(suggestions);
-                wrapper.setState({ suggestions, noSuggestions: true });
-                wrapper.update();
-                expect(wrapper.state().suggestions).toEqual(suggestions);
-                expect(wrapper.state().noSuggestions).toBeTruthy();
-            } catch (error) {
-                wrapper.setState({ error: true });
-                wrapper.update();
-                expect(wrapper.state().error).toBeTruthy();
-            }
-        });
-    });
-});
+//             componentButton.simulate('click');
+//             try {
+//                 const { data } = await getCharactersService('doc');
+//                 expect(data).toEqual(suggestions);
+//                 wrapper.setState({ suggestions, noSuggestions: true });
+//                 wrapper.update();
+//                 expect(wrapper.state().suggestions).toEqual(suggestions);
+//                 expect(wrapper.state().noSuggestions).toBeTruthy();
+//             } catch (error) {
+//                 wrapper.setState({ error: true });
+//                 wrapper.update();
+//                 expect(wrapper.state().error).toBeTruthy();
+//             }
+//         });
+//     });
+// });
 
 describe('Alerts', () => {
     let wrapper;
