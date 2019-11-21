@@ -25,5 +25,16 @@
     cursor: pointer
     font-weight: bold
 
-.suggestionsContainer li:hover
+.suggestionsContainer li span
+    display: block
+    width: 100%
+    overflow: hidden
+
+=commonBackground()
     background-color: #e1e9ec
+
+.suggestionsContainer li:hover
+    +commonBackground()
+
+.selectedItem
+    +commonBackground()

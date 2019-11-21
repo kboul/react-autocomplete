@@ -2,20 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '../sass/Suggestions.module.sass';
 
-const Suggestions = ({ suggestions, selectSuggestion }) => {
-    const ulStyle =
-        suggestions.length !== 0 ? styles.ulExpanded : styles.ulCollapsed;
+const Suggestions = ({ suggestions, selectSuggestion, cursor }) => {
+    const ulStyle = suggestions.length ? styles.ulExpanded : styles.ulCollapsed;
+    const liStyle = index => (cursor === index ? styles.selectedItem : null);
     return (
         <div
             data-test="component-suggestions"
             className={styles.suggestionsContainer}>
             <ul className={ulStyle}>
-                {suggestions.map(({ name, id }) => (
+                {suggestions.map(({ name, id }, index) => (
                     <li
                         data-test="suggestion-list"
                         key={id}
-                        onClick={() => selectSuggestion(name)}>
-                        {name}
+                        className={liStyle(index)}>
+                        <span
+                            onClick={() => selectSuggestion(name)}
+                            onKeyDown={() => {}}
+                            tabIndex="-1"
+                            role="button">
+                            {name}
+                        </span>
                     </li>
                 ))}
             </ul>
@@ -30,7 +36,8 @@ Suggestions.propTypes = {
             name: PropTypes.string.isRequired
         })
     ).isRequired,
-    selectSuggestion: PropTypes.func.isRequired
+    selectSuggestion: PropTypes.func.isRequired,
+    cursor: PropTypes.number.isRequired
 };
 
 export default Suggestions;

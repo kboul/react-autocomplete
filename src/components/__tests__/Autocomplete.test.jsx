@@ -83,8 +83,8 @@ describe('Input', () => {
 
 describe('Suggestions', () => {
     const wrapper = setup();
+    wrapper.setState({ showSuggestions: true });
     const componentSuggestions = wrapper.find('Suggestions');
-    componentSuggestions.setState({ showSuggestions: true });
 
     test('prop selectSuggestion is a function', () => {
         expect(componentSuggestions.prop('selectSuggestion')).toBeInstanceOf(

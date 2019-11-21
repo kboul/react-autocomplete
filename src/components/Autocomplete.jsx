@@ -6,18 +6,16 @@ import Suggestions from './Suggestions';
 import { getCharactersService } from '../services/getCharactersService';
 
 class Autocomplete extends Component {
-    // eslint-disable-next-line react/sort-comp
-    constructor(props) {
-        super(props);
-        this.state = {
-            suggestions: [],
-            value: '',
-            error: false,
-            noSuggestions: false,
-            showSuggestions: false
-        };
-        this.inputRef = React.createRef();
-    }
+    state = {
+        suggestions: [],
+        value: '',
+        cursor: -1,
+        noSuggestions: false,
+        showSuggestions: false,
+        error: false
+    };
+
+    inputRef = React.createRef();
 
     searchSuggestions = debounce(async () => {
         this.setState({ error: false });
@@ -28,7 +26,8 @@ class Autocomplete extends Component {
                 const suggestions = [...data.data.results];
                 this.setState({
                     suggestions,
-                    noSuggestions: suggestions.length === 0 ? true : false
+                    noSuggestions: suggestions.length === 0 ? true : false,
+                    cursor: -1
                 });
             } catch (error) {
                 if (error.status !== 200) {
@@ -47,7 +46,7 @@ class Autocomplete extends Component {
     };
 
     selectSuggestion = value => {
-        this.setState({ value, showSuggestions: false });
+        this.setState({ value, showSuggestions: false, cursor: -1 });
     };
 
     handleFocus = () => {
@@ -55,10 +54,24 @@ class Autocomplete extends Component {
     };
 
     handleKeyDown = e => {
+        const { suggestions, showSuggestions, cursor } = this.state;
         if (e.keyCode === 27) {
-            const { showSuggestions } = this.state;
             if (showSuggestions) {
                 this.setState({ showSuggestions: false });
+                this.inputRef.current.blur();
+            }
+        } else if (e.keyCode === 38 && cursor > 0) {
+            this.setState(prevState => ({
+                cursor: prevState.cursor - 1
+            }));
+        } else if (e.keyCode === 40 && cursor < suggestions.length - 1) {
+            this.setState(prevState => ({
+                cursor: prevState.cursor + 1
+            }));
+        } else if (e.keyCode === 13) {
+            e.preventDefault();
+            if (suggestions[cursor]) {
+                this.selectSuggestion(suggestions[cursor].name);
                 this.inputRef.current.blur();
             }
         }
@@ -70,7 +83,8 @@ class Autocomplete extends Component {
             suggestions,
             value,
             error,
-            noSuggestions
+            noSuggestions,
+            cursor
         } = this.state;
         return (
             <div data-test="component-autocomplete">
@@ -94,6 +108,7 @@ class Autocomplete extends Component {
                 {showSuggestions && (
                     <Suggestions
                         suggestions={suggestions}
+                        cursor={cursor}
                         selectSuggestion={this.selectSuggestion}
                     />
                 )}

@@ -8,7 +8,8 @@ const mockSelectSuggestion = jest.fn();
 
 const defaultProps = {
     suggestions: [],
-    selectSuggestion: mockSelectSuggestion
+    selectSuggestion: mockSelectSuggestion,
+    cursor: -1
 };
 
 const setup = (props = {}) => {
@@ -61,9 +62,41 @@ describe('if suggestions array is not empty', () => {
     });
 
     test('selectSuggestion is called when clicking on a suggestion', () => {
-        const suggestionList = findByTestAttr(wrapper, 'suggestion-list');
+        const suggestionList = findByTestAttr(wrapper, 'suggestion-list').find(
+            'span'
+        );
         suggestionList.at(0).simulate('click');
         expect(mockSelectSuggestion).toHaveBeenCalled();
+    });
+});
+
+describe('cursor is equal to -1', () => {
+    let wrapper;
+    let suggestionList;
+    beforeEach(() => {
+        wrapper = setup({ cursor: -1, suggestions });
+        suggestionList = findByTestAttr(wrapper, 'suggestion-list');
+    });
+
+    test('has the correct style when cursor is not -1', () => {
+        [0, 1, 2].forEach(item => {
+            expect(suggestionList.at(item).prop('className')).toBe(null);
+        });
+    });
+});
+
+describe('cursor is > -1', () => {
+    let wrapper;
+    let suggestionList;
+    beforeEach(() => {
+        wrapper = setup({ cursor: 1, suggestions });
+        suggestionList = findByTestAttr(wrapper, 'suggestion-list');
+    });
+
+    test('has the correct style when cursor is not -1', () => {
+        expect(suggestionList.at(0).prop('className')).toBe(null);
+        expect(suggestionList.at(1).prop('className')).toBe('selectedItem');
+        expect(suggestionList.at(2).prop('className')).toBe(null);
     });
 });
 
