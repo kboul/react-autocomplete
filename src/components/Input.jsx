@@ -2,22 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '../sass/Input.module.sass';
 
-const Input = ({ value, onChange }) => {
+const Input = ({ curlyCorners, ...props }) => {
+    const corners = !curlyCorners ? styles.curlyCorners : styles.noCurlyCorners;
     return (
-        <input
-            type="text"
-            data-test="component-input"
-            placeholder="Search terms"
-            className={styles.input}
-            value={value}
-            onChange={onChange}
-        />
+        <form>
+            <label htmlFor="search">
+                <span className={styles.label}>Search</span>
+                <input
+                    {...props}
+                    type="text"
+                    data-test="component-input"
+                    className={`${corners} ${styles.input}`}
+                />
+            </label>
+        </form>
     );
 };
 
 Input.propTypes = {
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired
+    curlyCorners: PropTypes.bool.isRequired
 };
 
 export default Input;

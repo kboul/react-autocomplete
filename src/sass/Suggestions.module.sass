@@ -1,13 +1,23 @@
+@import 'shared.sass'
+
+.suggestionsContainer
+    width: 250px
+
 .suggestionsContainer ul 
     list-style-type: none
     text-align: left
     margin: 0
     padding: 0
+    +sharedStyle()
+    border-top-right-radius: 0px
+    border-top-left-radius: 0px
 
-.suggestionsContainer li:first-child
-    border-top: 2px solid #e1e9ec
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
+.ulExpanded
+    border: 2px solid #e1e9ec
+    border-top: 1px
+
+.ulCollapsed
+    border: 0px
 
 .suggestionsContainer li
     font-family: Aria, Helvetica, sans-serif

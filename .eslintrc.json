@@ -13,7 +13,6 @@
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
-            // "experimentalObjectRestSpread": true
         },
         "ecmaVersion": 2018,
         "sourceType": "module"
@@ -27,9 +26,6 @@
         "react/state-in-constructor": "off",
         "react/jsx-closing-bracket-location": "off",
         "react/jsx-curly-newline": "off",
-        "jsx-a11y/click-events-have-key-events": "off",
-        "jsx-a11y/no-noninteractive-element-interactions": "off",
-        "jsx-a11y/label-has-associated-control": "off",
         "react/no-unused-state": "off",
         "no-console": "off",
         "import/prefer-default-export": "off",

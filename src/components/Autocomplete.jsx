@@ -4,7 +4,6 @@ import Alert from './Alert';
 import Input from './Input';
 import Suggestions from './Suggestions';
 import { getCharactersService } from '../services/getCharactersService';
-import styles from '../sass/Autocomplete.module.sass';
 
 class Autocomplete extends Component {
     state = {
@@ -48,20 +47,19 @@ class Autocomplete extends Component {
         const { suggestions, value, error, noSuggestions } = this.state;
         return (
             <div data-test="component-autocomplete">
-                <label className={styles.label}>Search</label>
-                <div className={styles.autocompleteContainer}>
-                    <Input
-                        value={value}
-                        onChange={e => {
-                            this.changeInputValue(e);
-                            this.searchSuggestions();
-                        }}
-                    />
-                    <Suggestions
-                        suggestions={suggestions}
-                        selectSuggestion={this.selectSuggestion}
-                    />
-                </div>
+                <Input
+                    value={value}
+                    placeholder="Search terms"
+                    curlyCorners={value.length > 2 && suggestions.length > 0}
+                    onChange={e => {
+                        this.changeInputValue(e);
+                        this.searchSuggestions();
+                    }}
+                />
+                <Suggestions
+                    suggestions={suggestions}
+                    selectSuggestion={this.selectSuggestion}
+                />
                 <div data-test="component-alert">
                     {error && <Alert type="" />}
                     {noSuggestions && <Alert type="noSuggestions" />}

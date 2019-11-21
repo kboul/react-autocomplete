@@ -1,9 +1,23 @@
 @import 'shared.sass'
 
+.label
+    font-weight: bold
+    display: block
+
 .input
-    width: 100%
+    margin-top: 10px
     border: none
     padding: 8px
     box-sizing: border-box
     outline: none
     +sharedStyle()
+    width: 250px
+    border: 2px solid #e1e9ec
+
+.curlyCorners
+    border-bottom-left-radius: 5px
+    border-bottom-right-radius: 5px
+
+.noCurlyCorners
+    border-bottom-left-radius: 0px
+    border-bottom-right-radius: 0px

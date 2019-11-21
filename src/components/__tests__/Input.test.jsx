@@ -3,11 +3,8 @@ import { shallow } from 'enzyme';
 import Input from '../Input';
 import { findByTestAttr, checkProps } from '../../tests/testUtils';
 
-const mockOnChange = jest.fn();
-
 const defaultProps = {
-    value: '',
-    onChange: mockOnChange
+    curlyCorners: false
 };
 
 const setup = () => {
@@ -24,11 +21,6 @@ describe('Input', () => {
 
     test('renders without error', () => {
         expect(componentInput).toHaveLength(1);
-    });
-
-    test('onChange is called upon onChange event', () => {
-        componentInput.simulate('change');
-        expect(mockOnChange).toHaveBeenCalled();
     });
 });
 
