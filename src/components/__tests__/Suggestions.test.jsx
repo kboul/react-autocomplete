@@ -16,7 +16,7 @@ const setup = (props = {}) => {
     return shallow(<Suggestions {...setupProps} />);
 };
 
-describe('if there are no suggestions', () => {
+describe('if suggestions array is empty', () => {
     let wrapper;
     let componentSuggestions;
     beforeEach(() => {
@@ -33,7 +33,7 @@ describe('if there are no suggestions', () => {
     });
 });
 
-describe('if there are suggestions', () => {
+describe('if suggestions array is not empty', () => {
     let wrapper;
     beforeEach(() => {
         wrapper = setup({ suggestions });

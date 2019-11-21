@@ -3,22 +3,21 @@ import PropTypes from 'prop-types';
 import styles from '../sass/Suggestions.module.sass';
 
 const Suggestions = ({ suggestions, selectSuggestion }) => {
-    const ul =
+    const ulStyle =
         suggestions.length !== 0 ? styles.ulExpanded : styles.ulCollapsed;
     return (
         <div
             data-test="component-suggestions"
             className={styles.suggestionsContainer}>
-            <ul className={ul}>
-                {suggestions.length > 0 &&
-                    suggestions.map(({ name, id }) => (
-                        <li
-                            data-test="suggestion-list"
-                            key={id}
-                            onClick={() => selectSuggestion(name)}>
-                            {name}
-                        </li>
-                    ))}
+            <ul className={ulStyle}>
+                {suggestions.map(({ name, id }) => (
+                    <li
+                        data-test="suggestion-list"
+                        key={id}
+                        onClick={() => selectSuggestion(name)}>
+                        {name}
+                    </li>
+                ))}
             </ul>
         </div>
     );
