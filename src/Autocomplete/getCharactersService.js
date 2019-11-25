@@ -1,4 +1,4 @@
-import httpService from './httpService';
+import httpService from '../httpService';
 
 const apiEndpoint = '/characters';
 const apiKey = process.env.REACT_APP_API_KEY;

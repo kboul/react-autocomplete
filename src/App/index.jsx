@@ -1,9 +1,9 @@
 import React from 'react';
-import Autocomplete from './Autocomplete';
+import Autocomplete from '../Autocomplete';
 
 const App = () => {
     return (
-        <div data-test='component-app'>
+        <div data-test="component-app">
             <Autocomplete />
         </div>
     );

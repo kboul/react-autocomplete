@@ -24,7 +24,7 @@
             "!src/index.jsx",
             "!src/serviceWorker.js",
             "!src/tests/**",
-            "!src/services/httpService.js"
+            "!src/httpService.js"
         ]
     },
     "eslintConfig": {

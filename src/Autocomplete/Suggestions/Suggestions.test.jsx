@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Suggestions from '../Suggestions';
+import Suggestions from './index';
 import { findByTestAttr, checkProps } from '../../tests/testUtils';
 import { suggestions } from '../../tests/suggestions';
 

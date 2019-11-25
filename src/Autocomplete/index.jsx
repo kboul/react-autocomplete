@@ -3,7 +3,7 @@ import debounce from 'lodash.debounce';
 import Alert from './Alert';
 import Input from './Input';
 import Suggestions from './Suggestions';
-import { getCharactersService } from '../services/getCharactersService';
+import { getCharactersService } from './getCharactersService';
 
 class Autocomplete extends Component {
     state = {
@@ -60,7 +60,7 @@ class Autocomplete extends Component {
                 this.setState({ showSuggestions: false });
                 this.inputRef.current.blur();
             }
-        } else if (e.keyCode === 38 && cursor > 0) {
+        } else if (e.keyCode === 38 && cursor > -1) {
             this.setState(prevState => ({
                 cursor: prevState.cursor - 1
             }));
@@ -98,7 +98,6 @@ class Autocomplete extends Component {
                         showSuggestions
                     }
                     onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}
                     onChange={e => {
                         this.changeInputValue(e);
                         this.searchSuggestions();

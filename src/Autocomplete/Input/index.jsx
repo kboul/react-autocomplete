@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from '../sass/Input.module.sass';
+import styles from './Input.module.sass';
 
 const Input = ({ curlyCorners, inputRef, ...props }) => {
     const cornersStyle = !curlyCorners
