@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/react-autocomplete/static/css/main.5b5b4936.chunk.css",
+    "main.js": "/react-autocomplete/static/js/main.8a5f8b44.chunk.js",
+    "main.js.map": "/react-autocomplete/static/js/main.8a5f8b44.chunk.js.map",
+    "runtime-main.js": "/react-autocomplete/static/js/runtime-main.f50c7100.js",
+    "runtime-main.js.map": "/react-autocomplete/static/js/runtime-main.f50c7100.js.map",
+    "static/js/2.732faccb.chunk.js": "/react-autocomplete/static/js/2.732faccb.chunk.js",
+    "static/js/2.732faccb.chunk.js.map": "/react-autocomplete/static/js/2.732faccb.chunk.js.map",
+    "index.html": "/react-autocomplete/index.html",
+    "precache-manifest.6720303918a13cc47152cf676a7a406b.js": "/react-autocomplete/precache-manifest.6720303918a13cc47152cf676a7a406b.js",
+    "service-worker.js": "/react-autocomplete/service-worker.js",
+    "static/css/main.5b5b4936.chunk.css.map": "/react-autocomplete/static/css/main.5b5b4936.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f50c7100.js",
+    "static/js/2.732faccb.chunk.js",
+    "static/css/main.5b5b4936.chunk.css",
+    "static/js/main.8a5f8b44.chunk.js"
+  ]
+}
