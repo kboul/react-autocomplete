@@ -8,19 +8,20 @@ import { getCharactersService } from './getCharactersService';
 class Autocomplete extends Component {
     state = {
         suggestions: [],
+        loading: false,
+        error: false,
         value: '',
         cursor: -1,
         noSuggestions: false,
-        showSuggestions: false,
-        error: false
+        showSuggestions: false
     };
 
     inputRef = React.createRef();
 
     searchSuggestions = debounce(async () => {
-        this.setState({ error: false });
         const { value } = this.state;
         if (value.length > 1) {
+            this.setState({ error: false, loading: true });
             try {
                 const { data } = await getCharactersService(value);
                 const suggestions = [...data.data.results];
@@ -34,6 +35,7 @@ class Autocomplete extends Component {
                     this.setState({ error: true });
                 }
             }
+            this.setState({ loading: false });
         }
     }, 1000);
 
@@ -60,7 +62,7 @@ class Autocomplete extends Component {
                 this.setState({ showSuggestions: false });
                 this.inputRef.current.blur();
             }
-        } else if (e.keyCode === 38 && cursor > -1) {
+        } else if (e.keyCode === 38 && cursor > 0) {
             this.setState(prevState => ({
                 cursor: prevState.cursor - 1
             }));
@@ -84,7 +86,8 @@ class Autocomplete extends Component {
             value,
             error,
             noSuggestions,
-            cursor
+            cursor,
+            loading
         } = this.state;
         return (
             <div data-test="component-autocomplete">
@@ -97,6 +100,7 @@ class Autocomplete extends Component {
                         suggestions.length > 0 &&
                         showSuggestions
                     }
+                    loading={loading}
                     onFocus={this.handleFocus}
                     onChange={e => {
                         this.changeInputValue(e);

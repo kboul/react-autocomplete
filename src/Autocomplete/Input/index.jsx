@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Input.module.sass';
 
-const Input = ({ curlyCorners, inputRef, ...props }) => {
+const Input = ({ curlyCorners, inputRef, loading, ...props }) => {
     const cornersStyle = !curlyCorners
         ? styles.curlyCorners
         : styles.noCurlyCorners;
@@ -15,7 +15,9 @@ const Input = ({ curlyCorners, inputRef, ...props }) => {
                     ref={inputRef}
                     type="text"
                     data-test="component-input"
-                    className={`${cornersStyle} ${styles.input}`}
+                    className={`${cornersStyle} ${styles.input} ${
+                        loading ? styles.loading : null
+                    }`}
                 />
             </label>
         </form>
@@ -25,7 +27,8 @@ const Input = ({ curlyCorners, inputRef, ...props }) => {
 Input.propTypes = {
     curlyCorners: PropTypes.bool.isRequired,
     inputRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) })
-        .isRequired
+        .isRequired,
+    loading: PropTypes.bool.isRequired
 };
 
 export default Input;
