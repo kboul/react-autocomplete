@@ -27,10 +27,8 @@ const Autocompelte = () => {
 
     const handleKeyDown = e => {
         if (e.keyCode === 27) {
-            if (showSuggestions) {
-                setShowSuggestions(false);
-                inputRef.current.blur();
-            }
+            setShowSuggestions(false);
+            inputRef.current.blur();
         } else if (e.keyCode === 38) {
             setCursor(prevCursor => (cursor > 0 ? prevCursor - 1 : prevCursor));
         } else if (e.keyCode === 40) {
@@ -60,11 +58,7 @@ const Autocompelte = () => {
                 inputRef={inputRef}
                 value={query}
                 placeholder="Search terms"
-                curlyCorners={
-                    query.length > 1 &&
-                    suggestions.length > 0 &&
-                    showSuggestions
-                }
+                curlyCorners={suggestions.length && showSuggestions}
                 loading={loading}
                 onFocus={() => setShowSuggestions(true)}
                 onChange={e => setQuery(e.target.value)}
