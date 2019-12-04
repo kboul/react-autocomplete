@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import debounce from 'lodash.debounce';
-import { getCharactersService } from '../getCharactersService';
+import { getCharactersService } from './services';
 
 const useSuggestionsFetcher = query => {
     const [suggestions, setSuggestions] = useState([]);

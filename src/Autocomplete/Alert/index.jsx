@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Alert.module.sass';
+import styles from './index.module.sass';
 
 const Alert = ({ type }) => {
     const alertStyle =

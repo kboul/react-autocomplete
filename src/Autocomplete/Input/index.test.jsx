@@ -5,7 +5,8 @@ import { findByTestAttr, checkProps } from '../../tests/testUtils';
 
 const defaultProps = {
     curlyCorners: false,
-    inputRef: React.createRef()
+    inputRef: React.createRef(),
+    loading: false
 };
 
 const setup = ({ ...props }) => {
@@ -26,7 +27,7 @@ describe('curlyCorners is false', () => {
     });
 
     test('renders correct className when curlyCorners is falsy', () => {
-        expect(componentInput.prop('className')).toBe('curlyCorners input');
+        expect(componentInput.prop('className')).toContain('curlyCorners');
     });
 });
 
@@ -43,7 +44,41 @@ describe('curlyCorners is true', () => {
     });
 
     test('renders correct className when curlyCorners is truthy', () => {
-        expect(componentInput.prop('className')).toBe('noCurlyCorners input');
+        expect(componentInput.prop('className')).toContain('noCurlyCorners');
+    });
+});
+
+describe('loading is false', () => {
+    let wrapper;
+    let componentInput;
+    beforeEach(() => {
+        wrapper = setup();
+        componentInput = findByTestAttr(wrapper, 'component-input');
+    });
+
+    test('renders without error', () => {
+        expect(componentInput).toHaveLength(1);
+    });
+
+    test('renders correct className when loading is truthy', () => {
+        expect(componentInput.prop('className')).not.toContain('loading');
+    });
+});
+
+describe('loading is true', () => {
+    let wrapper;
+    let componentInput;
+    beforeEach(() => {
+        wrapper = setup({ loading: true });
+        componentInput = findByTestAttr(wrapper, 'component-input');
+    });
+
+    test('renders without error', () => {
+        expect(componentInput).toHaveLength(1);
+    });
+
+    test('renders correct className when loading is truthy', () => {
+        expect(componentInput.prop('className')).toContain('loading');
     });
 });
 

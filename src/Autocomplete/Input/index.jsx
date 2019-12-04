@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Input.module.sass';
+import styles from './index.module.sass';
 
 const Input = ({ curlyCorners, inputRef, loading, ...props }) => {
     const cornersStyle = !curlyCorners
@@ -16,7 +16,7 @@ const Input = ({ curlyCorners, inputRef, loading, ...props }) => {
                     type="text"
                     data-test="component-input"
                     className={`${cornersStyle} ${styles.input} ${
-                        loading ? styles.loading : null
+                        loading ? styles.loading : ''
                     }`}
                 />
             </label>

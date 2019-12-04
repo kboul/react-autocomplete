@@ -1,4 +1,4 @@
-@import '../sass/shared.sass'
+@import '../shared.sass'
 
 .suggestionsContainer
     width: 250px
@@ -29,6 +29,10 @@
     display: block
     width: 100%
     overflow: hidden
+
+.suggestionsContainer li span:focus
+    border: none !important
+    outline: none !important 
 
 =commonBackground()
     background-color: #e1e9ec

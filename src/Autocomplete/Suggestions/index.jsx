@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Suggestions.module.sass';
+import styles from './index.module.sass';
 
 const Suggestions = ({ suggestions, selectSuggestion, cursor }) => {
     const ulStyle = suggestions.length ? styles.ulExpanded : styles.ulCollapsed;

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Alert from './Alert';
 import Input from './Input';
 import Suggestions from './Suggestions';
-import useSuggestionsFetcher from './hooks/useSuggestionsFetcher';
+import useSuggestionsFetcher from './hooks';
 
 const Autocompelte = () => {
     const [query, setQuery] = useState('');
@@ -58,7 +58,7 @@ const Autocompelte = () => {
                 inputRef={inputRef}
                 value={query}
                 placeholder="Search terms"
-                curlyCorners={suggestions.length && showSuggestions}
+                curlyCorners={suggestions.length > 0 && showSuggestions}
                 loading={loading}
                 onFocus={() => setShowSuggestions(true)}
                 onChange={e => setQuery(e.target.value)}
