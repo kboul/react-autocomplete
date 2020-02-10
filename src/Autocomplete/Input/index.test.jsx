@@ -9,7 +9,7 @@ const defaultProps = {
     loading: false
 };
 
-const setup = ({ ...props }) => {
+const setup = (props = {}) => {
     const setupProps = { ...defaultProps, ...props };
     return shallow(<Input {...setupProps} />);
 };

@@ -32,6 +32,16 @@
         "import/no-extraneous-dependencies": "off",
         "react/forbid-foreign-prop-types": "off",
         "react/jsx-props-no-spreading": "off",
-        "no-unneeded-ternary": "off"
-    }
+        "no-unneeded-ternary": "off",
+        "arrow-body-style": "off"
+    },
+    "overrides": [
+        {
+            "files": ["serviceWorker.js"],
+            "rules": {
+                "no-use-before-define": "off",
+                "no-param-reassign": "off"
+            }
+        }
+    ]
 }
